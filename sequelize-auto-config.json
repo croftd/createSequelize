@@ -1,0 +1,13 @@
+{
+    "dialect": "mysql",
+    "host": "localhost", 
+    "port": 3306, 
+    "additional": {
+      "timestamps": false
+    },
+    "caseProp": "l",
+    "caseFile": "p",
+    "singularize": true, 
+    "caseModel": "p",
+    "lang": "js"
+  }
