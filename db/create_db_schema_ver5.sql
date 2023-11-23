@@ -54,8 +54,8 @@ CREATE TABLE IF NOT EXISTS `create_app`.`user_project` (
   `user_iduser` INT NOT NULL,
   `project_idProject` INT NOT NULL,
   PRIMARY KEY (`user_iduser`, `project_idProject`),
-  INDEX `fk_user_has_project_project1_idx` (`project_idProject` ASC) VISIBLE,
-  INDEX `fk_user_has_project_user_idx` (`user_iduser` ASC) VISIBLE,
+  INDEX `fk_user_has_project_project1_idx` (`project_idProject` ASC) ,
+  INDEX `fk_user_has_project_user_idx` (`user_iduser` ASC) ,
   CONSTRAINT `fk_user_has_project_user`
     FOREIGN KEY (`user_iduser`)
     REFERENCES `create_app`.`user` (`id`)
@@ -86,8 +86,8 @@ CREATE TABLE IF NOT EXISTS `create_app`.`user_role` (
   `user_id` INT NOT NULL,
   `role_id` INT NOT NULL,
   PRIMARY KEY (`user_id`, `role_id`),
-  INDEX `fk_user_has_role_role1_idx` (`role_id` ASC) VISIBLE,
-  INDEX `fk_user_has_role_user1_idx` (`user_id` ASC) VISIBLE,
+  INDEX `fk_user_has_role_role1_idx` (`role_id` ASC),
+  INDEX `fk_user_has_role_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_user_has_role_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `create_app`.`user` (`id`)
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `create_app`.`rubric` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `type_id` INT NOT NULL,
   PRIMARY KEY (`id`, `type_id`),
-  INDEX `type_id_idx` (`type_id` ASC) VISIBLE,
+  INDEX `type_id_idx` (`type_id` ASC),
   CONSTRAINT `type_id`
     FOREIGN KEY (`type_id`)
     REFERENCES `create_app`.`project_type` (`id`)
@@ -132,8 +132,8 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `create_app`.`project_rubric` (
   `project_id` INT NOT NULL,
   `rubric_id` INT NOT NULL,
-  INDEX `project_id_idx` (`project_id` ASC) VISIBLE,
-  INDEX `rubric_id_idx` (`rubric_id` ASC) VISIBLE,
+  INDEX `project_id_idx` (`project_id` ASC),
+  INDEX `rubric_id_idx` (`rubric_id` ASC),
   PRIMARY KEY (`project_id`, `rubric_id`),
   CONSTRAINT `project_id`
     FOREIGN KEY (`project_id`)
@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `create_app`.`rubric_criteria` (
   `rubric_id` INT NOT NULL,
   `description` VARCHAR(255) NOT NULL,
   `title` VARCHAR(45) NOT NULL,
-  INDEX `rubric_id_idx_criteria` (`rubric_id` ASC) VISIBLE,
+  INDEX `rubric_id_idx_criteria` (`rubric_id` ASC),
   PRIMARY KEY (`id`, `rubric_id`),
   CONSTRAINT `rubric_id_fk_criteria`
     FOREIGN KEY (`rubric_id`)
@@ -184,8 +184,8 @@ CREATE TABLE IF NOT EXISTS `create_app`.`attendee_vote` (
   `project_id` INT NOT NULL,
   `attendee_id` INT NOT NULL,
   PRIMARY KEY (`project_id`, `attendee_id`),
-  INDEX `fk_attendee_vote_project1_idx` (`project_id` ASC) VISIBLE,
-  INDEX `fk_attendee_vote_attendee1_idx` (`attendee_id` ASC) VISIBLE,
+  INDEX `fk_attendee_vote_project1_idx` (`project_id` ASC),
+  INDEX `fk_attendee_vote_attendee1_idx` (`attendee_id` ASC),
   CONSTRAINT `fk_attendee_vote_project1`
     FOREIGN KEY (`project_id`)
     REFERENCES `create_app`.`project` (`id`)
@@ -221,8 +221,8 @@ CREATE TABLE IF NOT EXISTS `create_app`.`event_project` (
   `event_id` INT NOT NULL,
   `project_id` INT NOT NULL,
   PRIMARY KEY (`event_id`, `project_id`),
-  INDEX `fk_event_has_project_project1_idx` (`project_id` ASC) VISIBLE,
-  INDEX `fk_event_has_project_event1_idx` (`event_id` ASC) VISIBLE,
+  INDEX `fk_event_has_project_project1_idx` (`project_id` ASC),
+  INDEX `fk_event_has_project_event1_idx` (`event_id` ASC),
   CONSTRAINT `fk_event_has_project_event1`
     FOREIGN KEY (`event_id`)
     REFERENCES `create_app`.`event` (`id`)
@@ -243,8 +243,8 @@ CREATE TABLE IF NOT EXISTS `create_app`.`project_has_project_type` (
   `project_id` INT NOT NULL,
   `project_type_id` INT NOT NULL,
   PRIMARY KEY (`project_id`, `project_type_id`),
-  INDEX `fk_project_has_project_type_project_type1_idx` (`project_type_id` ASC) VISIBLE,
-  INDEX `fk_project_has_project_type_project1_idx` (`project_id` ASC) VISIBLE,
+  INDEX `fk_project_has_project_type_project_type1_idx` (`project_type_id` ASC),
+  INDEX `fk_project_has_project_type_project1_idx` (`project_id` ASC),
   CONSTRAINT `fk_project_has_project_type_project1`
     FOREIGN KEY (`project_id`)
     REFERENCES `create_app`.`project` (`id`)
@@ -274,7 +274,7 @@ CREATE TABLE IF NOT EXISTS `create_app`.`participant` (
   `group_member3_name` VARCHAR(45) NULL,
   `group_member4_name` VARCHAR(45) NULL,
   PRIMARY KEY (`id`, `user_id`),
-  INDEX `fk_participant_user1_idx` (`user_id` ASC) VISIBLE,
+  INDEX `fk_participant_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_participant_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `create_app`.`user` (`id`)
@@ -291,7 +291,7 @@ CREATE TABLE IF NOT EXISTS `create_app`.`mark` (
   `criteria_id` INT NOT NULL,
   `project_id` INT NOT NULL,
   PRIMARY KEY (`id`, `criteria_id`),
-  INDEX `criteria_id_idx_mark` (`criteria_id` ASC) VISIBLE,
+  INDEX `criteria_id_idx_mark` (`criteria_id` ASC),
   CONSTRAINT `criteria_id_fk_mark`
     FOREIGN KEY (`criteria_id`)
     REFERENCES `create_app`.`rubric_criteria` (`id`)
@@ -318,8 +318,8 @@ CREATE TABLE IF NOT EXISTS `create_app`.`comment` (
   `comment` TEXT NOT NULL,
   `comment_type_id` INT NOT NULL,
   PRIMARY KEY (`id`, `comment_type_id`, `rubric_id`),
-  INDEX `rubric_id_idx_comment` (`rubric_id` ASC) VISIBLE,
-  INDEX `comment_type_id_idx_comment` (`comment_type_id` ASC) VISIBLE,
+  INDEX `rubric_id_idx_comment` (`rubric_id` ASC),
+  INDEX `comment_type_id_idx_comment` (`comment_type_id` ASC),
   CONSTRAINT `rubric_id_fk_comment`
     FOREIGN KEY (`rubric_id`)
     REFERENCES `create_app`.`rubric` (`id`)
@@ -340,8 +340,8 @@ INSERT_METHOD = LAST;
 CREATE TABLE IF NOT EXISTS `create_app`.`rubric_nomination` (
   `rubric_id` INT NOT NULL,
   `adjudimentor_user_id` INT NOT NULL,
-  INDEX `rubric_id_idx_nomination` (`rubric_id` ASC) VISIBLE,
-  INDEX `adjudimentor_user_id_idx_nomination` (`adjudimentor_user_id` ASC) VISIBLE,
+  INDEX `rubric_id_idx_nomination` (`rubric_id` ASC),
+  INDEX `adjudimentor_user_id_idx_nomination` (`adjudimentor_user_id` ASC),
   PRIMARY KEY (`adjudimentor_user_id`, `rubric_id`),
   CONSTRAINT `rubric_id_fk_nomination`
     FOREIGN KEY (`rubric_id`)

@@ -1,11 +1,14 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('RubricCriterium', {
-    id: {
-      autoIncrement: true,
+  return sequelize.define('ProjectRubric', {
+    project_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      references: {
+        model: 'project',
+        key: 'id'
+      }
     },
     rubric_id: {
       type: DataTypes.INTEGER,
@@ -15,18 +18,10 @@ module.exports = function(sequelize, DataTypes) {
         model: 'rubric',
         key: 'id'
       }
-    },
-    description: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    title: {
-      type: DataTypes.STRING(45),
-      allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'rubric_criteria',
+    tableName: 'project_rubric',
     timestamps: false,
     indexes: [
       {
@@ -34,12 +29,19 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id" },
+          { name: "project_id" },
           { name: "rubric_id" },
         ]
       },
       {
-        name: "rubric_id_idx_criteria",
+        name: "project_id_idx",
+        using: "BTREE",
+        fields: [
+          { name: "project_id" },
+        ]
+      },
+      {
+        name: "rubric_id_idx",
         using: "BTREE",
         fields: [
           { name: "rubric_id" },

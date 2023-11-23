@@ -1,23 +1,28 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Criterion', {
+  return sequelize.define('Mark', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    title: {
-      type: DataTypes.STRING(45),
-      allowNull: false
+    criteria_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      references: {
+        model: 'rubric_criteria',
+        key: 'id'
+      }
     },
-    description: {
-      type: DataTypes.STRING(45),
+    project_id: {
+      type: DataTypes.INTEGER,
       allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'criteria',
+    tableName: 'mark',
     timestamps: false,
     indexes: [
       {
@@ -26,6 +31,14 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
+          { name: "criteria_id" },
+        ]
+      },
+      {
+        name: "criteria_id_idx_mark",
+        using: "BTREE",
+        fields: [
+          { name: "criteria_id" },
         ]
       },
     ]

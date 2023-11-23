@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('RubricCriterium', {
+  return sequelize.define('Comment', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -16,17 +16,22 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    description: {
-      type: DataTypes.STRING(255),
+    comment: {
+      type: DataTypes.TEXT,
       allowNull: false
     },
-    title: {
-      type: DataTypes.STRING(45),
-      allowNull: false
+    comment_type_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      references: {
+        model: 'comment_type',
+        key: 'id'
+      }
     }
   }, {
     sequelize,
-    tableName: 'rubric_criteria',
+    tableName: 'comment',
     timestamps: false,
     indexes: [
       {
@@ -35,14 +40,22 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
+          { name: "comment_type_id" },
           { name: "rubric_id" },
         ]
       },
       {
-        name: "rubric_id_idx_criteria",
+        name: "rubric_id_idx_comment",
         using: "BTREE",
         fields: [
           { name: "rubric_id" },
+        ]
+      },
+      {
+        name: "comment_type_id_idx_comment",
+        using: "BTREE",
+        fields: [
+          { name: "comment_type_id" },
         ]
       },
     ]

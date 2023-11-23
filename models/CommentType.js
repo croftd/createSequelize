@@ -1,24 +1,19 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Rubric', {
+  return sequelize.define('CommentType', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    type_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'project_type',
-        key: 'id'
-      }
+    description: {
+      type: DataTypes.STRING(20),
+      allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'rubric',
+    tableName: 'comment_type',
     timestamps: false,
     indexes: [
       {
@@ -27,14 +22,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-          { name: "type_id" },
-        ]
-      },
-      {
-        name: "type_id_idx",
-        using: "BTREE",
-        fields: [
-          { name: "type_id" },
         ]
       },
     ]
