@@ -13,20 +13,20 @@ module.exports = function(sequelize, DataTypes) {
       comment: "Determines if this event is virtual"
     },
     event_description: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.STRING(255),
       allowNull: false
     },
     event_location: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.STRING(255),
       allowNull: false,
       comment: "Location of the event - e.g. Upper Cafeteria, Theatre, Twitter"
     },
     start_time: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       allowNull: true
     },
     end_time: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       allowNull: true
     },
     capacity: {

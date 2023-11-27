@@ -10,10 +10,10 @@ module.exports = function(sequelize, DataTypes) {
     rubric_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      field: 'RubricId'
     },
     description: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.TEXT,
       allowNull: false
     },
     title: {
@@ -31,14 +31,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-          { name: "rubric_id" },
-        ]
-      },
-      {
-        name: "rubric_id_idx_criteria",
-        using: "BTREE",
-        fields: [
-          { name: "rubric_id" },
         ]
       },
     ]

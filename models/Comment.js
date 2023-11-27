@@ -10,16 +10,15 @@ module.exports = function(sequelize, DataTypes) {
     rubric_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      field: 'RubricId'
     },
-    comment: {
+    comment_text: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
-    comment_type_id: {
+    comment_type: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
+      allowNull: false
     }
   }, {
     sequelize,
@@ -32,22 +31,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-          { name: "comment_type_id" },
-          { name: "rubric_id" },
-        ]
-      },
-      {
-        name: "rubric_id_idx_comment",
-        using: "BTREE",
-        fields: [
-          { name: "rubric_id" },
-        ]
-      },
-      {
-        name: "comment_type_id_idx_comment",
-        using: "BTREE",
-        fields: [
-          { name: "comment_type_id" },
         ]
       },
     ]

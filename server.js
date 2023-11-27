@@ -11,7 +11,7 @@ const { Sequelize, DataTypes } = require("sequelize");
 // TODO: I would recommend create a local user rather than using
 // root with no password!
 // Option 3: Passing parameters separately (other dialects)
-const sequelize = new Sequelize('create_app', 'root', '', {
+const sequelize = new Sequelize('create_app', 'create_app', 'create123$', {
   host: 'localhost',
   dialect: 'mysql'
 });
@@ -29,9 +29,7 @@ models.Project.belongsToMany(models.Event, { through: 'event_project' });
 // UserRole
 models.User.belongsToMany(models.Role, { through: 'user_role' });
 models.Role.belongsToMany(models.User, { through: 'user_role' });
-// AttendeeVote
-models.Attendee.belongsToMany(models.Project, { through: 'attendee_vote' });
-models.Project.belongsToMany(models.Attendee, { through: 'attendee_vote' });
+
 
 // Syncing the models with the database
 sequelize.sync().then(() => {
