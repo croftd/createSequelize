@@ -142,15 +142,19 @@ async function dbExamples() {
     await user1.addProject(project1);
     await user1.addProject(project2);
     
+    // note for associative entities that have additional columns we can pass these 
+    // through such as (here there would be a column 'role'):
+    // user.addProject(project, { through: { role: 'manager' }});
+    // https://sequelize.org/api/v6/class/src/associations/belongs-to-many.js~belongstomany
     // https://sequelize.org/docs/v6/core-concepts/model-querying-finders/
-    // croftd - the getProjects() method does not work we will do it another way
+    
+    // sequelize syntax to join in Project data for this user
     const projects = await user1.getProjects();
     console.log("Here are the projects for user1: " + projects);
     projects.forEach(function (proj) {
       console.log("\tProject: " + proj.title);
     });
 
-    
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
