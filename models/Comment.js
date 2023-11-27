@@ -10,11 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     rubric_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'rubric',
-        key: 'id'
-      }
+      primaryKey: true
     },
     comment: {
       type: DataTypes.TEXT,
@@ -23,11 +19,7 @@ module.exports = function(sequelize, DataTypes) {
     comment_type_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'comment_type',
-        key: 'id'
-      }
+      primaryKey: true
     }
   }, {
     sequelize,

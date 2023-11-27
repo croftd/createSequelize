@@ -30,11 +30,7 @@ module.exports = function(sequelize, DataTypes) {
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'user',
-        key: 'id'
-      }
+      primaryKey: true
     },
     group_member_1_name: {
       type: DataTypes.STRING(45),

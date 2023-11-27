@@ -20,18 +20,8 @@ const sequelize = new Sequelize('create_app', 'root', '', {
 var initModels = require("./models/init-models.js");
 var models = initModels(sequelize);
 
-// UserProject
 models.User.belongsToMany(models.Project, { through: 'user_project' });
 models.Project.belongsToMany(models.User, { through: 'user_project' });
-// EventProject
-models.Event.belongsToMany(models.Project, { through: 'event_project' });
-models.Project.belongsToMany(models.Event, { through: 'event_project' });
-// UserRole
-models.User.belongsToMany(models.Role, { through: 'user_role' });
-models.Role.belongsToMany(models.User, { through: 'user_role' });
-// AttendeeVote
-models.Attendee.belongsToMany(models.Project, { through: 'attendee_vote' });
-models.Project.belongsToMany(models.Attendee, { through: 'attendee_vote' });
 
 // Syncing the models with the database
 sequelize.sync().then(() => {
@@ -138,9 +128,29 @@ async function dbExamples() {
     console.log("Here is user1: " + user1);
     console.log("Here is project1: " + project1);
 
-    // create associations between user1 and the 2 projects
+    //console.log(Object.getOwnPropertyNames(user1));
+
+    // croftd - the Sequelize auto documentation didn't work to 'addProject' - 
+    // if you uncomment these lines you will see the errors from the database
+    // models.User.belongsToMany(models.Project, { through: models.UserProject });
+    // models.Project.belongsToMany(models.User, { through: models.UserProject });
+    // await user1.addProject(project1);
+
+
     await user1.addProject(project1);
     await user1.addProject(project2);
+
+
+    //
+    // what does work is creating a new UserProject entity using the correct foreign keys:
+    //
+    // Create a new association
+    //
+    //const userProject1 = await models.UserProject.create({
+    //  user_iduser: user1.id,
+    //  project_id_project: project1.id
+    //});
+
     
     // https://sequelize.org/docs/v6/core-concepts/model-querying-finders/
     // croftd - the getProjects() method does not work we will do it another way
@@ -150,13 +160,44 @@ async function dbExamples() {
       console.log("\tProject: " + proj.title);
     });
 
-    
+    /*
+    const projects = [];
+    // first find all the UserProject entries for this user
+    console.log("Finding projects for user: " + user1.first_name)
+    const userProjects = await models.UserProject.findAll({
+      where: { 
+        user_iduser: user1.id
+      }
+    }).then( res => {
+        res.forEach(function (el) {
+          console.log("Finding Project for user: " + el.dataValues.user_iduser);
+          models.Project.findOne({
+            where: {
+              id: el.dataValues.project_id_project
+            }
+          }).then(res => {
+            console.log("Found a project for this user");
+            // This should be a Sequelize User object - to test print the first_name
+            console.log("Project: " + res);
+            projects.push(res);
+            console.log("Here are the projects for user1: " + projects);
+
+          }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+          });
+        });
+      });
+      */
+
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
 
+
   // croftd - this can't run if authentication or object creation asynchronous
   //sequelize.close();
+
+
 }
 
 // Here we wait for the dbExamples to finish

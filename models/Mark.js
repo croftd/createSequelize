@@ -10,11 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     criteria_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'rubric_criteria',
-        key: 'id'
-      }
+      primaryKey: true
     },
     project_id: {
       type: DataTypes.INTEGER,

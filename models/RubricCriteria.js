@@ -1,27 +1,32 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('UserRole', {
-    user_id: {
+  return sequelize.define('rubricCriteria', {
+    id: {
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true
+    },
+    rubric_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       references: {
-        model: 'user',
+        model: 'rubric',
         key: 'id'
       }
     },
-    role_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'role',
-        key: 'id'
-      }
+    description: {
+      type: DataTypes.STRING(255),
+      allowNull: false
+    },
+    title: {
+      type: DataTypes.STRING(45),
+      allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'user_role',
+    tableName: 'rubric_criteria',
     timestamps: false,
     indexes: [
       {
@@ -29,22 +34,15 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "user_id" },
-          { name: "role_id" },
+          { name: "id" },
+          { name: "rubric_id" },
         ]
       },
       {
-        name: "fk_user_has_role_role1_idx",
+        name: "rubric_id_idx_criteria",
         using: "BTREE",
         fields: [
-          { name: "role_id" },
-        ]
-      },
-      {
-        name: "fk_user_has_role_user1_idx",
-        using: "BTREE",
-        fields: [
-          { name: "user_id" },
+          { name: "rubric_id" },
         ]
       },
     ]

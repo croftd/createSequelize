@@ -4,20 +4,12 @@ module.exports = function(sequelize, DataTypes) {
     rubric_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'rubric',
-        key: 'id'
-      }
+      primaryKey: true
     },
     adjudimentor_user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'user',
-        key: 'id'
-      }
+      primaryKey: true
     }
   }, {
     sequelize,

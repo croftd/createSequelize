@@ -10,11 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     type_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'project_type',
-        key: 'id'
-      }
+      primaryKey: true
     }
   }, {
     sequelize,
@@ -27,13 +23,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-          { name: "type_id" },
-        ]
-      },
-      {
-        name: "type_id_idx",
-        using: "BTREE",
-        fields: [
           { name: "type_id" },
         ]
       },

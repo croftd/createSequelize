@@ -10,11 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     rubric_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'rubric',
-        key: 'id'
-      }
+      primaryKey: true
     },
     description: {
       type: DataTypes.STRING(255),
