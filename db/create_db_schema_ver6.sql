@@ -12,6 +12,9 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema create_app
 -- -----------------------------------------------------
 -- Database schema created for CREATE App 2024 by WMD class 2023
+-- Note I've removed the foreign key integrity constraints as they were 
+-- causing issues many places, see this article from Nathan to support this:
+-- https://planetscale.com/docs/learn/operating-without-foreign-key-constraints
 
 -- -----------------------------------------------------
 -- Schema create_app
